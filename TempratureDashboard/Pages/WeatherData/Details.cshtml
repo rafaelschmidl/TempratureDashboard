@@ -1,0 +1,43 @@
+﻿@page
+@model TempratureDashboard.Pages.WeatherData.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>WeatherData</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WeatherData.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WeatherData.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WeatherData.Place)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WeatherData.Place)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WeatherData.Temprature)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WeatherData.Temprature)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WeatherData.Humidity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WeatherData.Humidity)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.WeatherData.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
