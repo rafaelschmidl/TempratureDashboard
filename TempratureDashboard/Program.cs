@@ -30,8 +30,8 @@ namespace TempratureDashboard
                 try
                 {
                     var context = services.GetRequiredService<DBContext>();
-                    //context.Database.EnsureCreated();
-                    DBInitializer.Initialize(context);
+                    context.Database.EnsureCreated();
+                    //DBInitializer.Initialize(context);
                 }
                 catch (Exception ex)
                 {

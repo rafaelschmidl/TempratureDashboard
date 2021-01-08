@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using TempratureDashboard.Data;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace TempratureDashboard
 {
@@ -25,6 +27,14 @@ namespace TempratureDashboard
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            int MyMaxModelBindingCollectionSize = 100;
+            //Int32.TryParse(Configuration["MyMaxModelBindingCollectionSize"],
+            //                           out MyMaxModelBindingCollectionSize);
+
+            services.Configure<MvcOptions>(options =>
+                   options.MaxModelBindingCollectionSize = MyMaxModelBindingCollectionSize);
+
+
             services.AddRazorPages();
 
             services.AddDbContext<DBContext>(options =>
