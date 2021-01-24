@@ -1,0 +1,46 @@
+﻿@page
+@model WeatherDashboard.Pages.WeatherData.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>WeatherData</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WeatherData.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WeatherData.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WeatherData.Place)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WeatherData.Place)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WeatherData.Temperature)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WeatherData.Temperature)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WeatherData.Humidity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WeatherData.Humidity)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="WeatherData.ID" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

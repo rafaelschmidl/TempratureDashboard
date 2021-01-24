@@ -1,0 +1,210 @@
+﻿@page
+@model WeatherDashboard.Pages.OutdoorsModel
+@{
+}
+
+<h1>Outdoors</h1>
+
+<div class="container-fluid bg-info">
+    <form method="post">
+        <label asp-for="AverageTempratureDay"></label>
+        <input type="date" asp-for="AverageTempratureDay" value="2016-05-31" />
+        <button type="submit">Submit</button>
+    </form>
+
+    <p class="@(Model.AverageTempratureDayVisible ? "visible" : "invisible")">@Model.AverageTempratureDay.Date.ToShortDateString()</p>
+
+</div>
+
+<div class="container border bg-light">
+    <div class="row">
+        <div class="col">
+
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h3>Average temerature</h3>
+            <div class="container bg-dark pre-scrollable">
+                <table class="table text-light">
+                    <thead>
+                        <tr>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Average temperature
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.AverageTemperatures)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Date.ToShortDateString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Temperature)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col">
+            <h3>Average humidity</h3>
+            <div class="container bg-dark pre-scrollable">
+                <table class="table text-light">
+                    <thead>
+                        <tr>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Average humidity
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.AverageHumidity)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Date.ToShortDateString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Humidity)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h3>Mold risk</h3>
+            <div class="container bg-dark pre-scrollable">
+                <table class="table text-light">
+                    <thead>
+                        <tr>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Mold risk
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.MoldRisk)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Date.ToShortDateString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MoldRisk)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<h2>Average temprature</h2>
+
+    <h3>Temerature for a specific day</h3>
+    <label for="averageTemperature">Choose a date : </label>
+    <input id="averageTemperature" type="date" />
+
+    <h3>Temerature sorted from hottest to coldest day</h3>
+    <div class="scrollContainer">
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Temperature</th>
+            </tr>
+            <tr>
+                <td>2016-05-31</td>
+                <td>44.4</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <h3>Humidity sorted from most humid to dryest day</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.OutdoorData[0].Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OutdoorData[0].Place)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OutdoorData[0].Temperature)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OutdoorData[0].Humidity)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OutdoorData)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Place)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Temperature)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Humidity)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@

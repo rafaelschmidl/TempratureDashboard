@@ -1,0 +1,54 @@
+﻿@page
+@model WeatherDashboard.Pages.WeatherData.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WeatherData[0].Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeatherData[0].Place)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeatherData[0].Temperature)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeatherData[0].Humidity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.WeatherData) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Place)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Temperature)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Humidity)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
