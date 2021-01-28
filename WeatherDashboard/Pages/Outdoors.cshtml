@@ -3,32 +3,48 @@
 @{
 }
 
-<h1>Outdoors</h1>
 
-<div class="container-fluid bg-info">
-    <form method="post">
-        <label asp-for="AverageTempratureDay"></label>
-        <input type="date" asp-for="AverageTempratureDay" value="2016-05-31" />
-        <button type="submit">Submit</button>
-    </form>
 
-    <p class="@(Model.AverageTempratureDayVisible ? "visible" : "invisible")">@Model.AverageTempratureDay.Date.ToShortDateString()</p>
 
-</div>
+<div class="container p-4 bg-white transparent">
+    <!--Dashboard Container-->
 
-<div class="container border bg-light">
-    <div class="row">
+    <h1 class="text-center">Outdoors</h1>
+
+    <hr />
+
+    <div class="row pb-2">
         <div class="col">
-
-        </div>
-        <div class="col">
+            <h3>Average temperature of a specific day</h3>
         </div>
     </div>
     <div class="row">
+
         <div class="col">
-            <h3>Average temerature</h3>
+            <form method="post">
+                <label class="w-100" asp-for="AverageTempratureDay">Choose a date:</label>
+                <input class="w-100 mb-3" type="date" asp-for="AverageTempratureDay" min="2016-05-31" max="2016-12-22" value="2016-05-31" />
+                <button class="w-100" type="submit">Find</button>
+            </form>
+        </div>
+        <div class="col">
+            <div class="border">
+                <div class="bg-dark text-white p-4 @(Model.ShowAverageTempratureDay ? "visible" : "invisible")">
+                    <p>Average temperature: @Model.AverageTempratureDayValue.ToString()</p>
+                    <p>Date: @Model.AverageTempratureDay.Date.ToShortDateString()</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row ">
+        <div class="col ">
+            <h3>Average temperature</h3>
+            <h4>Sorted from hottest to coldest day</h4>
             <div class="container bg-dark pre-scrollable">
-                <table class="table text-light">
+                <table class="table text-white">
                     <thead>
                         <tr>
                             <th>
@@ -55,10 +71,11 @@
                 </table>
             </div>
         </div>
-        <div class="col">
+        <div class="col ">
             <h3>Average humidity</h3>
+            <h4>Sorted from most humid to dryest day</h4>
             <div class="container bg-dark pre-scrollable">
-                <table class="table text-light">
+                <table class="table text-white">
                     <thead>
                         <tr>
                             <th>
@@ -87,11 +104,15 @@
 
         </div>
     </div>
+
+    <hr />
+
     <div class="row">
         <div class="col">
             <h3>Mold risk</h3>
+            <h4>Sorted from lowest to highest mold risk</h4>
             <div class="container bg-dark pre-scrollable">
-                <table class="table text-light">
+                <table class="table text-white">
                     <thead>
                         <tr>
                             <th>
@@ -118,93 +139,41 @@
                 </table>
             </div>
         </div>
-    </div>
 
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*<h2>Average temprature</h2>
-
-    <h3>Temerature for a specific day</h3>
-    <label for="averageTemperature">Choose a date : </label>
-    <input id="averageTemperature" type="date" />
-
-    <h3>Temerature sorted from hottest to coldest day</h3>
-    <div class="scrollContainer">
-        <table>
-            <tr>
-                <th>Date</th>
-                <th>Temperature</th>
-            </tr>
-            <tr>
-                <td>2016-05-31</td>
-                <td>44.4</td>
-            </tr>
-
-        </table>
+        <div class="col my-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Meteorological autumn 2016</h3>
+                </div>
+                <div class="card-body bg-dark text-white">
+                    @if (Model.MeteorologicalAutumn.HasValue)
+                    {
+                        <p>@Model.MeteorologicalAutumn.Value.ToShortDateString()</p>
+                    }
+                    else
+                    {
+                        <p>No meteorological autumn year 2016...</p>
+                    }
+                </div>
+            </div>
+            <hr />
+            <div class="card">
+                <div class="card-header">
+                    <h3>Meteorological winter 2016</h3>
+                </div>
+                <div class="card-body bg-dark text-white">
+                    @if (Model.MeteorologicalWinter.HasValue)
+                    {
+                        <p>@Model.MeteorologicalWinter.Value.ToShortDateString()</p>
+                    }
+                    else
+                    {
+                        <p>No meteorological winter year 2016...</p>
+                    }
+                </div>
+            </div>
+        </div>
 
     </div>
 
-    <h3>Humidity sorted from most humid to dryest day</h3>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.OutdoorData[0].Date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.OutdoorData[0].Place)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.OutdoorData[0].Temperature)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.OutdoorData[0].Humidity)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.OutdoorData)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Date)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Place)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Temperature)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Humidity)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>*@
+</div><!--/Dashboard Container-->

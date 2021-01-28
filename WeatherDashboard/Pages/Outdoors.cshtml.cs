@@ -19,12 +19,15 @@ namespace WeatherDashboard.Pages
         [BindProperty(SupportsGet = true)]
         public DateTime AverageTempratureDay { get; set; }
         [BindProperty(SupportsGet = true)]
-        public bool AverageTempratureDayVisible { get; set; }
-
+        public double AverageTempratureDayValue { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public bool ShowAverageTempratureDay { get; set; }
         public IList<(DateTime Date, double Temperature)> AverageTemperatures { get; set; }
         public IList<(DateTime Date, double Humidity)> AverageHumidity { get; set; }
-
         public IList<(DateTime Date, double MoldRisk)> MoldRisk { get; set; }
+        public DateTime? MeteorologicalAutumn{ get; set; }
+        public DateTime? MeteorologicalWinter { get; set; }
+
 
         public OutdoorsModel(EFContext context)
         {
@@ -32,15 +35,36 @@ namespace WeatherDashboard.Pages
             AverageTemperatures = new List<(DateTime, double)>();
             AverageHumidity = new List<(DateTime, double)>();
             MoldRisk = new List<(DateTime, double)>();
-
-            AverageTempratureDayVisible = false;
+            ShowAverageTempratureDay = false;
         }
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            OutdoorData = await _context.WeatherData
+            DataHandler();
+        }
+
+
+        public IActionResult OnPost()
+        {
+
+            DataHandler();
+
+            ShowAverageTempratureDay = true;
+
+            var (Date, Temperature) = AverageTemperatures
+                .Where(at => at.Date == AverageTempratureDay)
+                .First();
+
+            AverageTempratureDayValue = Temperature;
+
+            return RedirectToPage(new { AverageTempratureDay, AverageTempratureDayValue, ShowAverageTempratureDay });
+        }
+
+        private void DataHandler()
+        {
+            OutdoorData = _context.WeatherData
                 .Where(wd => wd.Place == "Ute")
-                .ToListAsync();
+                .ToList();
 
             foreach (var group in OutdoorData.GroupBy(g => g.Date.Date))
             {
@@ -56,16 +80,63 @@ namespace WeatherDashboard.Pages
             AverageTemperatures = AverageTemperatures.OrderByDescending(at => at.Temperature).ToList();
             AverageHumidity = AverageHumidity.OrderByDescending(ah => ah.Humidity).ToList();
             MoldRisk = MoldRisk.OrderBy(mr => mr.MoldRisk).ToList();
+
+            MeteorologicalAutumn = FindMeteorologicalAutumn();
+            MeteorologicalWinter = FindMeteorologicalWinter();
+
         }
 
-
-        public IActionResult OnPost()
+        private DateTime? FindMeteorologicalAutumn()
         {
-            var x = AverageTempratureDay;
+            var found = false;
+            for (int i = 0; i < AverageTemperatures.Count; i++)
+            {
+                if (AverageTemperatures[i].Temperature < 10.0 && AverageTemperatures[i].Temperature > 0.0)
+                {
+                    for (int j = 0; j <= 5; j++)
+                    {
+                        if (AverageTemperatures[i + j].Temperature < 10.0 && AverageTemperatures[i + j].Temperature > 0.0)
+                            found = true;
+                        else
+                        {
+                            found = false;
+                            break;
+                        }
+                    }
+                }
 
-            AverageTempratureDayVisible = true;
-
-            return RedirectToPage(new { AverageTempratureDay, AverageTempratureDayVisible });
+                if (found)
+                    return AverageTemperatures[i].Date;
+            }
+            return null;
         }
+
+        private DateTime? FindMeteorologicalWinter()
+        {
+            var found = false;
+            for (int i = 0; i < AverageTemperatures.Count; i++)
+            {
+                if (AverageTemperatures[i].Temperature < 0)
+                {
+                    for (int j = 0; j <= 5; j++)
+                    {
+                        if (AverageTemperatures[i + j].Temperature < 0)
+                            found = true;
+                        else
+                        {
+                            found = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (found)
+                    return AverageTemperatures[i].Date;
+            }
+            return null;
+
+        }
+
+
     }
 }

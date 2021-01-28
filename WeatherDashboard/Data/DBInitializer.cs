@@ -18,18 +18,6 @@ namespace WeatherDashboard.Data
                 return;   // DB has already been seeded
             }
 
-            //var weatherData = new WeatherDashboard.Models.WeatherData[]
-            //{
-
-            //    new WeatherDashboard.Models.WeatherData{Date=DateTime.Parse("2016-05-31 13:58:30"), Place="Inne", Temperature=24.8, Humidity=42},
-            //    new WeatherDashboard.Models.WeatherData{Date=DateTime.Parse("2016-05-31 13:59:30"), Place="Inne", Temperature=24.8, Humidity=42},
-            //    new WeatherDashboard.Models.WeatherData{Date=DateTime.Parse("2016-05-31 13:59:43"), Place="Ute", Temperature=25.2, Humidity=39},
-            //    new WeatherDashboard.Models.WeatherData{Date=DateTime.Parse("2016-05-31 14:00:30"), Place="Inne", Temperature=24.8, Humidity=43},
-            //    new WeatherDashboard.Models.WeatherData{Date=DateTime.Parse("2016-05-31 14:00:43"), Place="Ute", Temperature=25.3, Humidity=39},
-            //    new WeatherDashboard.Models.WeatherData{Date=DateTime.Parse("2016-05-31 14:01:30"), Place="Inne", Temperature=24.8, Humidity=42},
-            //    new WeatherDashboard.Models.WeatherData{Date=DateTime.Parse("2016-05-31 14:01:43"), Place="Ute", Temperature=25.3, Humidity=39}
-            //};
-
             using StreamReader sr = new StreamReader("TemperaturData.csv");
 
             string[] weatherDataStringArray = sr.ReadToEnd().Split("\r\n");

@@ -4,7 +4,33 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <h2>FUCK YEAH!</h2>
+<div class="container text-center bg-white transparent">
+
+    <h1 class="display-4 w-100 p-4">Welcome to WeatherDashboard</h1>
+
+    <hr />
+
+    <p>
+        loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
+        loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
+        loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
+    </p>
+
+    <hr />
+
+    <div class="container w-50 pb-4">
+        <ul class="navbar-nav fl flex-row justify-content-between">
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-page="/Outdoors">Outdoors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-page="/Indoors">Indoors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-page="/Balcony">Balcony</a>
+            </li>
+        </ul>
+    </div>
+
+
 </div>
